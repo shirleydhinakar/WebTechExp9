@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Angular JS Forms and Routing</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    </head>
+    <body>
+        <div id="q1" ng-app="q1" ng-controller="FormVal">
+            <h1>Question 1</h1>
+            <form name="myform">
+                <fieldset>
+                    <legend>Form Validation:</legend>
+                    Name: 
+                    <span style="color:red;">*</span><br>
+                    <input type="text" name="myname" ng-model="name" required>
+                    <span style="color:red" ng-show="myform.myname.$dirty && myform.myname.$error.required">Name is required..</span>
+                    <br><br>
+                    Age:
+                    <span style="color:red;">*</span><br>
+                    <input type="text" name="myage" ng-model="age" required>
+                    <span style="color:red" ng-show="myform.myage.$dirty && myform.myage.$error.required">Age is required..</span>
+                    <br><br>
+                    Reg No:
+                    <span style="color:red;">*</span><br>
+                    <input type="text" name="myregno" ng-model="regno" required>
+                    <span style="color:red" ng-show="myform.myregno.$dirty && myform.myregno.$error.required">Age is required..</span>
+                    <br><br>
+                    Username:
+                    <span style="color:red;">*</span><br>
+                    <input type="text" name="myusername" ng-model="username" required>
+                    <span style="color:red" ng-show="myform.myusername.$dirty && myform.myusername.$error.required">Username is required..</span>
+                    <br><br>
+                    Email:
+                    <span style="color:red;">*</span><br>
+                    <input type="email" name="myemail" ng-model="email" required>
+                    <span style="color:red" ng-show="myform.myemail.$dirty && myform.myemail.$error.required">Email is required..</span>
+                    <span style="color:red" ng-show="myform.myemail.$dirty && myform.myemail.$error.email">Email format is wrong..</span>
+                    <br><br>
+                    Password:
+                    <span style="color:red;">*</span><br>
+                    <input type="password" name="pass" ng-model="pass" ng-pattern="passpattern" required>
+                    <span style="color:red" ng-show="myform.pass.$dirty && myform.pass.$error.required">Password is required..</span>
+                    <span style="color:red" ng-show="myform.pass.$dirty && myform.pass.$error.pattern">Password format wrong..</span>
+                    <br><br>
+                    <button ng-disabled="myform.myname.$invalid ||myform.myemail.$invalid ||myform.pass.$invalid">Submit</button>
+                </fieldset>
+            </form>
+        </div>
+        <script type='text/javascript'>
+            var app1 = angular.module("q1",[]); 
+            app1.controller("FormVal",function($scope){
+                $scope.passpattern = /^[a-zA-Z0-9]{5,10}$/;
+            });
+        </script>
+        <div id="q2" ng-app="q2">
+            <h1>Question 2</h1>
+            <fieldset>
+                <legend>Angular JS Routing:</legend>
+                    <p><a href="#/!">Main</a></p>
+                    <a href="#!1001">1001</a>
+                    <a href="#!1002">1002</a>
+                    <a href="#!1003">1003</a>
+                    <a href="#!1004">1004</a>
+                    <div ng-view></div>
+            </fieldset>
+        </div>
+        <script>
+            var app = angular.module("q2", ["ngRoute"]);
+            app.config(function($routeProvider) {
+                $routeProvider
+                .when("/", {
+                    template : "<h2>Click on the Register Numbers to display the Student details!</h2>"
+                })
+                .when("/1001", {
+                    template : "<h2>1001</h2><div>Name: Sunil<p></p>Email: ksunil@gmail.com<p></p>Department: CSE<p></p>Specialization: DA<p></p></div>"
+                })
+                .when("/1002", {
+                    template : "<h2>1002</h2><div>Name: Mehul<p></p>Email: jmehul@gmail.com<p></p>Department: CSE<p></p>Specialization: AI&DS<p></p></div>"
+                })
+                .when("/1003", {
+                    template : "<h2>1003</h2><div>Name: Jack<p></p>Email: pjack@gmail.com<p></p>Department: CSE<p></p>Specialization: AI<p></p></div>"
+                })
+                .when("/1004", {
+                    template : "<h2>1004</h2><div>Name: Rose<p></p>Email: lrose@gmail.com<p></p>Department: CSE<p></p>Specialization: NIL<p></p></div>"
+                });
+            });
+            angular.bootstrap(document.getElementById("q2"), ['q2']);
+        </script>
+    </body>
+</html>
